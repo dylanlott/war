@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	//what does this do?
+	//what does this do? this assigns values to the face cards
 	var convert_value_to_string = function(value) {
 		if (value > 10) {
 			switch (value) {
@@ -18,7 +18,7 @@ $(document).ready(function() {
 		return value.toString();
 	}
 
-	//what does this do?
+	//what does this do? this builds out the deck 
 	var deck = [];
 	var suits = ['hearts', 'diamonds', 'spades', 'clubs'];
 	for (var i = 0; i<suits.length; i++) {
@@ -28,32 +28,53 @@ $(document).ready(function() {
 		}
 	}
 	
-	//what does this do?
-	var shuffle = function(array) { 
-		var copy = [];
-		var n = array.length; 
-		var i; 
-		while (n) { i = Math.floor(Math.random() * array.length);  
-			if (i in array) { 
-		 		copy.push(array[i]); 
-		 		delete array[i]; 
-		 		n--; 
-		 	} 
-		} 
-		return copy; 
-	}
-	
+	//This shuffles the deck using a random number generator in Javascript
+	var shuffle = function(deck) {
+	    var newDeck = [];
+	    for (var i = 0; i < deck.length; i++) {    
+	        var rand = Math.floor(Math.random() * (i + 1));  
+	        newDeck[i] = newDeck[rand];
+	        newDeck[rand] = deck[i];
+	    }
+	    return newDeck;
+	}  //shuffle is tested and works 
+
 	//Now call the shuffle function and save the result of what shuffle returns into your deck variable
 	
 	var cards_player_1 = [];
 	var cards_player_2 = [];
+
+//deck shuffles correctly with shuffle(deck); invoked 
+
 	// write a function called deal that will evently divide the deck up between the two players
-	
+	var deal = function(deck){
+		for(i=0; i<deck.length; i++){
+			if(deck.length%2 === 0){
+				cards_player_1.push(deck[i]); 
+				deck.splice(i, 1);  
+			}else{
+				cards_player_2.push(deck[i]); 
+				deck.splice(i, 1);
+			}
+
+		}
+		return deck; 
+	}
+
+	deck = deal(deck); 
 	
 	//create a function (algorithm) called "war" that takes two cards as parameters, compares them and returns a winner. A tie should return false.
-	var war = function(){
-	
-		
+	var war = function(card1, card2){
+		if(card1 > card2){
+			//card1 > card 2; 
+			//push to player 1 deck  
+		}elseif{
+			//card2 > card 1;
+			//push to player 2 deck
+		}else{
+			//card1 === card2; 
+			return: false; 
+		}
 	}
 	
 	var advance = function(){
@@ -75,6 +96,10 @@ $(document).ready(function() {
 		//give the winner both cards (at end of deck)
 	var play = function(){
 		
+		war(card1, card2); //compares cards 
+
+		giveCards(); //gives winner both cards 
+
 		//this function (defined below) will continue to the next turn
 		advance();
 	}
